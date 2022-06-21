@@ -1,0 +1,35 @@
+h1 {
+    color: aqua;
+}
+p {
+    color: blue;
+    font-size : 20px;
+}
+#def-text {
+    color:salmon;
+
+}
+.yellow-text  {
+    color:yellow;
+}
+.green-text{
+    color:green;
+}
+.yellow-text.green-text{
+    color:blueviolet!important;
+}
+
+.yellow-text.green-text{
+    color:greenyellow;
+    font-size: 32px;
+}
+p.yellow-text.green-text{
+    color:green;
+    font-size: 28px;
+}
+p,div{
+    color:brown;
+}
+h3{
+    color:darkmagenta;
+}
