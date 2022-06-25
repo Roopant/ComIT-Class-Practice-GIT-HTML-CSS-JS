@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* *{
+            outline:1px solid red;
+        } */
+        html{
+            margin:0;
+            padding:0;
+            font-size:16px;
+        }
+        .card{
+            width:300px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            margin-left:1rem;
+        }
+      .card-image{
+         width:100%;
+       }
+       .card-header{
+        margin: 1rem 3rem;
+        text-align:center;
+        
+       }
+       .price{
+        padding-left:1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid lightgrey;
+       }
+       .footer-section{
+        display:inline-block;
+        padding: 2rem 0.8rem;
+        /* border:1px solid lightblue; */
+    }
+    .btn{
+        padding : 1rem 1.5rem;
+        font-size:1rem;
+        background-color: white;
+        
+        
+    }
+    .danger{
+        border:2px solid red;
+        background-color: rgba(255, 0, 0, 0.084);
+        color:red;
+        border-radius: 5px;
+        
+
+    }
+    .add-to-cart{
+        border:2px solid green;
+        background-color: rgba(0, 255, 0, 0.084);
+        color:green;
+        border-radius: 5px;
+        
+
+    }
+    </style>
+</head>
+<body>
+    <article class="card">
+    <img class='card-image'src="/OIP.jpg">
+    <h2 class="card-header">Product 1</h2>
+    <p class="price">$400.00</p>
+    <section class="footer-section">
+      <button class="btn danger">Remove</button>
+    </section><section class="footer-section">
+      <button class="btn add-to-cart">Add to Cart</button>
+    </section>
+    </article>
+    </body>
+</html>

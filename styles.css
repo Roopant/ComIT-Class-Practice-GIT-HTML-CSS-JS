@@ -109,3 +109,6 @@ h4{
     background-color: green;
     margin:50px 20px 50px 40px;
 }
+.inline{
+    display:inline-block;
+}
