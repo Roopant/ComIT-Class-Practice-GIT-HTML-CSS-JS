@@ -1,13 +1,6 @@
-/* Declaring variables*/
-let age=6;
-console.log(age)
-console.log('age:',age)
-const address= '211 fallswater road'
-console.log('address:', address)
 
-console.log('address:', address)
 
-/*data types*/
+/*Primitive data types*/
 
 /*string*/
 const name ='roopant'
