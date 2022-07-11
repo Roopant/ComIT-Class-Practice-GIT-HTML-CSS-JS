@@ -1,1 +1,1 @@
-This is a git command assignment-2
+This is practice class and demos of what I learnt in iCode program
