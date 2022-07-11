@@ -1,121 +1,119 @@
+/*Conditional Statements*/
 
 
-/*Non-Primitive data type- OBJECT/
+/*if(is a keyword) (condition){
+    run a code
+}*/
 
-/*Array-subcategory of object*/
+const temp=-10
 
-const kids=['Nikunj','Prisha','Nayra']
-console.log(typeof kids)
-console.log(kids)
-console.log(kids[1])
-console.log(kids[4])//undefined-javascript dont have any information about fourth element as it doesn't exist ,so it is default behaviour
-
-/*Array with mix data type*/
-const nephew=['Nikunj',10,true]
-console.log(nephew)
-console.log (nephew[2]) //access true value
-
-/*array within array*/
-const niece=['Prisha',14,['girl',true]]
-console.log(niece)
-
-console.log(niece[2][0])// access girl value
-
-/* to reassign values*/
- niece[1]=15
- console.log[niece]
-console.log(typeof niece)
-
-niece[1]=16
-console.log[niece]
-
-
-/*Object-subcategory of object*/
-const person={
-    name:'Roopant',
-    age:29,
-    isCanadian:false,
+if (temp<0){
+    console.log('wear a coat')
 }
-console.log('person:',person)
-console.log(typeof person)
-console.log(person.age)//roopant age by dot notation
-console.log(person['name'])//Roopant name by square notation
-person.name='Roopant kalra' //to reassign value
-console.log(person)
 
-/*Operators*/
-
-/*Assignment Operators*/
-const example ={
-    name: 'Roopant',
+/*if (condition) { 
+    run this code
 }
-console.log(example)
+else {run this another code
+}*/
 
-/*Arithmetic Operators + - * / %(Modulus)*/
+if (temp>0){
+    console.log('wear a t-shirt')
+} else {
+    console.log('wear a coat')
+}
 
-const x = 7
-const y = 2
-const z= x%y
-console.log('x%y =',z)
+/*if(condition){
+    run this code
+} else if (new condition){
+    run this another code
+}*/
+
+const rain=true
+if (temp <0 && rain){
+    console.log('wear jacket & take umbrella')
+} else if ( temp <0 && !rain){
+    console.log('wear a jacket')
+}
+
+/*switch statement-another way to run conditional statement*/
+switch (temp) {
+    case 10:// you have to examine against pre-determined values ,not ranges < or >
+        console.log('temperature is high')
+        break
+    case 0:
+        console.log('temperature is low')
+        break
+    case -10:
+        console.log ('temperature is cold')
+        break// break is control statement , they control the flow of program, break will stop execution of program at this point and terminate block of code we are running at.
+    default:// if none of the pre-determined values are met,then default behaviour
+      console.log('no predetermined value of temp present')
+        break;
+}
+
+let temperature= 20
+
+if (temperature >0){
+    console.log('wear t-shirt') // it is one liner -means one line of code
+}else {
+    console.log('wear shirt')// we can remove {} in one liner
+}
+
+temperature =-10
+if (temperature<0)console.log('wear shirt')
+else console.log('wear t-shirt')
+
+/*ternary operator- condition? case.1: case.2*///for single line of code in if else statement
+temperature=15
+console.log(temperature>0? 'wear t-shirt':'wear shirt')
+
+/*Short-Circuiting-direct conditions and console.log*/
+let a= 2
+let b =-3
+
+a>0 && b<0 && console.log(a+b)// javascript will evaluate from left to right- true and true will be true so it will evaluate what is inside the console.log
+a>0 && b>0 && console.log(a+b)// true and false would be false , so short circuit happens here and javascript will stop here and console.log wouldnt be evaluated
+a<0 || b<0 && console.log(a+b)// false or true would be true and there is and sign, so javascript would evalute the console.log
+a<0 || b>0 || console.log(a)// there is OR condition, first is false, so it will go on to see if second is false or true, second is also false and then it will evaluate the third condition, no short circuit here but if there was true found, javascript would stop and do short circuit and doesn't move to next condition
+a>0 || b>0 || console.log(b)// true is found at first condition only, so javascript stops there only
+a>0 && b>0 || console. log(b)// true and false would be false, so it moves to next condition to see if it is true and by doing this, it evaluates the console.log
+a>0 && b<0 || console.log(b)//true and true would be true, so javascript stop here.
 
 
-/*Comparison Operators >, >=, < , <= ,==,===,!=,!==)*/
 
-const a=2
-const b=4
-c= a<b
-console.log('c:',c)
+/*truthy and falsy- if we provide non-boolean variables with conditional operators
+, javascript would try to make sense what the programmer is doing
+in terms of boolean expression-whether true or false*/
 
-const d=2
-const e=3
-const f = d >=e
-console.log ('f:',f)
+console.log(Boolean(10))//Boolean expression of 10 is true.its truthy value
 
-const g=1
-const h='1'
-let i = g==h
-console.log ('i:',i)
+console.log(10 && 'string')// javascript looked at 10 and it is truthy value in boolean context and it moves next and string is also truthy value and it evaluates the last value string and console.log it
 
-i=g===h // strict equality -data type check also
-console.log('strict i:',i)
+/*Data types in terms of Truthy and Falsy
+               Falsy  Truthy
+String          ""     "character" or "emptyspace"
+Number           0      any other number
+Boolean        false    true
+Undefined  always falsy
+Null       always falsy 
+Array                   always truthy even empty array []//it has reference in memory ,it exits
+Object                  always truthy
+*/
 
-i= g!=h//g not equal to h loose not equality
-console.log('loose i:',i)// they are equal in value , so false
+console.log(Boolean(''))//empty string
+console.log(Boolean(' '))//empty space
+console.log(Boolean(0))// zero
+console.log(Boolean(true))//boolean
+console.log(Boolean(undefined))//always false
+console.log(Boolean(null))//always false
+console.log(Boolean([]))//array always true
+console.log(Boolean({}))//object always true
 
-i=g!==h// g not equal to h strict equality
-console.log('not equal i :',i)// they are equal in value, not equal in data type,so true
+/*combining truthy and falsy concept with short-circuiting*/
+console.log(a>0 && b>0 && console.log(a+b))//true and false  would return false
 
-/*logical operators- (&&-And, ||- Or, !-Not- these operators are used if we like to compare two or more conditions/comparisons*/
-const isFromAlberta = false
-const isFromIndia = true
+console.log(0 && 10)//0 is falsy value and there is and ahead, so falsy value , no need to go ahead, output would be 0 because javascript evaluate the last value before the code is terminated
+console.log(a>0 && b<0 && (a+b))
 
-let winner= isFromAlberta && isFromIndia //And
-console.log('winner:',winner)
-
-winner= isFromAlberta || isFromIndia // OR
-console.log('winner:',winner)
-
-winner = !isFromAlberta// !Not flipps the condition
-console.log('winner:',winner)
-
-console.log('mathquiz:', (10>2) && !(5<2))// true && !(false)
-
-/*string operators*/
-
-let p = '1'+ '2'// here operands 1 and 2 are not numbers , they are strings so + doesn't act as addition operator
-console.log(p)// + concantenate 
-
-p='1  '+'2'
-console.log(p)// Concantination doesnt introduce space by itself, we have to give space like in this example
-
-/*another way to concentate using template literals*/
-let r ='kavita'
-let q='sethi'
-p=`${r} ${q} is my wife`// this ` back tick is used to define template and {} is a placeholder for variables and "is my wife"is literal string and if we omit $ sign before the placeholder{}, only variable name would be displayed, not its value.
-console.log(p)//$ is required to display the value of variable
-
-r= 'Roopant'
-q='kalra'
-
-p=`${r} ${q} ,   is alone in this world without happiness`
-console.log(p)
+console.log(10 && 20 && 30,true && false)
