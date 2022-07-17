@@ -16,191 +16,150 @@ const users=[
         }
     ]
 
-/*Loops and Iterations
-Loop is piece of code to repeat over and over again
-until there is a condition that is not valid anymore
-and that code is terminated*/
+/*Functions*/// It is a way to reuse code again and again. To use logic, piece of code in a reusable state
+//you can't use same function name multiple times
 
-/* ; semi-colon in javascript terminates the line*/
+/* function keyword , then specific function name , then paranthesis()
+and block of code inside function body{}
+In () , parameters of functions are given*/
 
-/*for loop- 
-first initate the variable,
-first we start with i = 0// INITIALISE
-then we check condition i<users.length //CHECK CONDITION
-then we run the code inside {}//RUN THE CODE
-then increment i & assign to left, new i=i+1 //INCREMENT
-then again check condition new i <users.length// CHECK CONDITION
-then again run code // RUN CODE
-then increment new i & assign to left , new new i= new i+1 // INCREMENT 
-LOOP GOING ON
+function greetOverEighteen(age,name){
+if(age >=18){
+    let greeting =`hello ${name}`
+    console.log(greeting)
+}
+}
+/* we have defined a function above with specific function name
+greetOverEighteen with parameters inside paranthesis(),-age and name
+and block of code is written inside function body{}. Please note that javascript
+will not know what is age and name in block of code by themselves.
+ First we have to define age and name as parameters in scope of function.
+ So,this greetOverEighteen(age, name) is known as function signature
+because it has to be used in exact name and exact order whenever to 
+be called anywhere */
 
-*/
+// now lets use this function in a loop
 
-for (let i=0; i < users.length ; i=i+1 ) {
-    console.log(`${i}:`,users[i].name)
+for(let i=0; i<users.length;i++){
+    greetOverEighteen(users[i].age,users[i].name)
+
+}
+/* in above loop, on every iteration, we are passing an 
+argument with the exact order as per function signature,
+this loop would run & on each run, it will make a call to 
+function "greetOverEighteen" and then this function would
+be executed on each iteration. when we call function, arguments such
+as age and name are passed but when we define function,those are called parameters*/
+
+//if I want to greet One single person anywhere in my application
+// I just write function name and pass 2 parameters
+
+greetOverEighteen(10,'Nikunj')// it will not display as logic is not met
+greetOverEighteen(50,'Kusam')//it will display as logic is met, age>18, so name would be console.log
+
+/*Another way of defining functions as Arrow function syntax
+const variable name = (parameters) => {code block} */
+
+const greetUnderEighteen = (age ,name) => {
+    if(age <18){
+        let greeting =`hello ${name}`
+        console.log(greeting)
+    }
+}
+greetUnderEighteen(20,'Ram')
+greetUnderEighteen(17,'Ram')
+
+greetUnderEighteen()/*javascript will not throw any error 
+if arguments are not passed in function call , 
+it will think variable parameters are yet undefined
+In such cases we can do something like this as below*/
+
+const  elderToMe= (age ,name) => {
+    if (!age || !name){
+        console.log ('please enter valid data')
+        return
+    }
+    if(age > 29){
+        let Elder =`hello big elder ${name}`
+        console.log(Elder)
+    } // this is no logic after this bracket and after this there is closing bracket  of function,so at this point ,javascript automatically assume that you want to return at this point without any value ,so it terminates, there is no need to right return here
+} 
+
+elderToMe(30,'sham')
+elderToMe() // () is calling a function but if  we are using call back function-like newfunction (elderToME), we are giving reference to this elderToME function,without (),not calling it
+
+
+/* what this function will do, if there is no age or no name
+like it is null, undefined or empty string, it would be false
+but we are putting ! sign so it would evaluate as truthy value
+and it will console. log 'please enter valid data' in such cases and
+then return is a keyword to return a value in a function
+- if anywhere return is mentioned without any parameters
+what it will do, it will just terminate the execution of function at that point and come out of
+the function*/
+
+/* Currency Convertor*/
+const currencyConvertor =(amount,rate)=>{
+    return amount* rate//here parameter is mentioned after return , so it would return a value and that value would be amount * rate 
+}
+const rupee =currencyConvertor(100,60)// return value is assigned to rupee variable
+console.log(rupee)
+
+/*Fun Quiz Score*/
+const funQuizScore =(scores)=>{    //scores as an array
+    if (!scores?.length) return// it is optional chaining , under hood it will check first whether scores is an array or not and if yes it will check its length
+    let quizSum=0
+    scores.forEach((user)=>{  // this is anonymous function as it has no name
+           quizSum+=user
+    })
+    return quizSum
 }
 
-/*Augmented Operators*/
-// i=i+1  i++  short hands
-// i=i-1  i--  short hands
-// i= i+1  ++i  short hands
-// i=i-1   --i  short hands
+/*!scores?.length means if scores doesn't have length property, please don't throw error at me
+under the hood if !(Array.isArray (scores) && scores.length===0)
+means if it is array -truthy && has length-truthy-so whole condition truthy
+and !truthy is falsy, so it will nor return and function would go on
+but if it is not array, it would be falsy and short-circuiting would happen
+and !falsy is truthy ,so function will return and terminate right away*/
 
-/*there is difference between ++i and i++ but i would by incremented by 1 in both cases
-In i++ , increment operations happens after the assignment phase*/
+console.log(funQuizScore([1,2,3]))// first quiz sum =0 , then its become 0+1=1, then 1+2=3, then 3+3=6, so output=6
+console.log(funQuizScore(20))// undefined because 20 is not array, it will return undefined due to optional chaining
+console.log(funQuizScore({}))//undefined as it is an object, not array
 
-let a=0
-let b= a++//first assignment from right to left would happen and then increment of a
-console.log (b)//b would be 0 but a is incremented
-console.log(a)// a would be 1
+/*console.log(funQuizScore('name'))// it will return an error because for each is not valid for strings
+in case of strings, it will not be undefined, because string is generally an array of characters.
+so it will pass optional chaining but get failed at forEach. In order to avoid this passing,
+we have to give extra different condition  before optional chaining to check if scores is a string or not*/
 
-a=0
-b=++a//first increment of a would happen and then evaluation result would be assigned from right to left
-console.log(b)// a would be incremented and evaluated result would be assigned so 1
-console.log(a)//a would be 1 
-
-/* when you pass an expression like a++ or ++a 
-to function console.log,it is similar to assigning
-a variable like above b case*/
-
-console.log(a++)//first do assignment to log and then increment
-console.log(++a)//first increment and then return
-
-/* Augmented Assignment operators*/
-//i=i+1  i+=1 short hands
-// i=i-1   i-=1 short hands
-// i=i*3   i*=3 short hands
-// i=i/4   i/=4 short hands
-// i=i%2   i%=2 short hands
-
-for (let i=0; i < users.length ; i++ ) {
-    console.log(`${i}:`,users[i].age)
+/*Fun Quiz Score*/
+const funQuiz =(scores)=>{    //scores as an array
+    if(typeof scores==='string') return
+    if (!scores?.length) return// it is optional chaining , under hood it will check first whether scores is an array or not and if yes it will check its length
+    let quizSum=0
+    scores.forEach((user)=>{  // this is anonymous function as it has no name
+           quizSum+=user
+    })
+    return quizSum
 }
-/* in above example, i is loop counter
-let i=0 is loop initialiser
-i<users.length is loop condition
-i++ is loop increment /loop action*/
+console.log(funQuiz('roopant'))//now result is undefined because first scores checked for data type
 
-/*While Loop*/
-//if you know condition where your iteration should end, while loop should be your first choice
-// while loop run on loop condition, not loop counter , we don't know how many iterations would go on and we check on condition
-// used in search operations
 
-const familyname='Kavita'//we are searching for this specifically
-let i=0
-let neighbour=users[i].name // this variable is placeholder for name 
-while(neighbour!==familyname)// to check condition if neighbour name is not equal to familyname which we are searching, execute the below code
-{ i++
-neighbour=users[i].name}
-console.log(`Kavita is object no.${i}`)
+/* New Currency Convertor if we have default parameters and we dont want to get undefined/NaN as a result
+in case we don't pass any arguments */
 
-/* to explain this, first we define what we are looking for
-then we started with i= 0 to look that name
-then we defined a neighbour placeholder for names
-then we define condition that if this neighbour name is not equal to familyname
-increment i and now new i, so new neighbour name 
-check condition again -is new neighbour name is equal to familyname, if not keep going
-otherwise if equal,come out of while loop, break code and exits and toward the end, console.log */
-
-/*do-while loop-
-it runs the first iteration without 
-checking the condition*/
-
-const broName= 'naveen'
-k=0
-do {
-neighbour=users[k].name
-k++
+const newCurrencyConvertor =(amount=100,rate=2)=>{
+    return amount*rate
 }
-while (neighbour!==broName)
-console.log(`Naveen is object no.${k-1}`)
+console.log(newCurrencyConvertor())//in case of no arguments will not return undefined, because we gave default value, so 100*2=200
+console.log(newCurrencyConvertor(undefined, 4))//undefined will not be considered, default 100 is considered, and rate 4 overrides default value so, result would be 400
+console.log(newCurrencyConvertor('roopant',5))//would return NaN (not a number), string*number is undefined which would converted to NaN under hood by javascript
+console.log(newCurrencyConvertor(undefined,undefined))//would take default parameters
+console.log(newCurrencyConvertor(undefined))//instead of undefined, it would take 100 and 2nd argument is not there ,so it will take 2, so answer=100*2=200
 
+console.log(newCurrencyConvertor(null))/* it would give 0 becoz javascript would
+do type conversion to number under the hood, null would converted to 0 and 0*2 would be 0*/
 
-/* in above example, first of all, code inside do {} would run atleast once 
-without checking the condition- neighbour and then k++
-then condition would be checked if  neighbour 
-is equal to broName or not and if not then repeat
-otherwise  if it is equal so when loop breaks
-as k++ is after neighbour, so it would be
-already incremented by 1 ,so console.log 
-k would be one extra unncessary value.
-so we do (k-1) to see true result.
- */
+console.log(currencyConvertor(null))/* under the hood, first parameter null would be type
+converted to 0 and another parameter we didn't give ,it is undefined, so 0*undefined would 
+be undefined which is converted to NaN by javascript, so we get null as result*/
 
-
-
-/*Short hand ways of using loops*/
-
-const result=users.find((user)=>user.name ===broName)
-
-console.log(result)
-
-/*1) find will perform a search operation for us 
-and it takes a function with parameter "user" and condition
-and for each user in this array and user is treated
-as elements of array and in this case those are
-objects. and we need to check condition if user.name is broName.
-So, basically users(array) would use find method to loop through each user (element of array)
-which is basically object here to see if this condition is met or not.
-when condition is met at any point, find would stop
-and return the user (that element , in this case--- object) .
-and that evaluation would be assigned from right to left.
-So, basically we see console.log (user) when
-condition is met*/
-
-
-/*2) if you want to itierate without condition
-like repeat the process from start to end of array
-without termination condition, we use forEach*/
-
-users.forEach((user)=>{
-    console.log(user)
-})
-
-users.forEach((user)=>{
-    console.log(`hello ${user.name}`)
-})
-
-/*basically forEach method is going to each user(element of array) and 
-repeating the code written for each element (user)*/
-
-//3) Short hand for objects(elements) of array
-
-family=[
-    {relation:'Son',
-    age:29},
-    {
-        relation:'mother',
-        age:52
-    },
-    {relation:'wife',
-      age:29},
-    { relation : 'brother',
-        age:40}
-]
-
-
-for (let user of family){
-    console.log(user)
-}
-/* define a variable 'user' is placeholder for iteration & assign the first index and return its value to variable 
-and it will iterate from start of array till it reach end of array
-and console.log all user (elements) which are objects in this case*/
-
-for (members of family){
-    console.log(members)
-}
-/*in above case,you can notice even without defining a variable, we are still 
-able to see the results-need to ask Amr? */
-
-//4)Short hand for keys of object
-
-for (key in family[1]){
-    console.log(key)
-}
-//basically iterating through keys of object
-
-for (let key in family[1]){
-    console.log(key)
-}
-//same result with let- then why let required? need to ask Amr
