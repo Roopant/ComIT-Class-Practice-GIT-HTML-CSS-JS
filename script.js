@@ -1,165 +1,72 @@
-const users=[
-    {name : 'Roopant',
-        age :29},
-        {
-            name: 'Kavita',
-            age:29
+/*scope and closure*/
 
-        },
-        {
-            name: 'Nikunj',
-            age:10
-        },
-        {
-        name: 'naveen',
-          age:40
-        }
-    ]
+const sum =(a,b)=>a+b// javascript understand it as {return a+b}
+const sub=(a,b)=> a-b
 
-/*Functions*/// It is a way to reuse code again and again. To use logic, piece of code in a reusable state
-//you can't use same function name multiple times
-
-/* function keyword , then specific function name , then paranthesis()
-and block of code inside function body{}
-In () , parameters of functions are given*/
-
-function greetOverEighteen(age,name){
-if(age >=18){
-    let greeting =`hello ${name}`
-    console.log(greeting)
-}
-}
-/* we have defined a function above with specific function name
-greetOverEighteen with parameters inside paranthesis(),-age and name
-and block of code is written inside function body{}. Please note that javascript
-will not know what is age and name in block of code by themselves.
- First we have to define age and name as parameters in scope of function.
- So,this greetOverEighteen(age, name) is known as function signature
-because it has to be used in exact name and exact order whenever to 
-be called anywhere */
-
-// now lets use this function in a loop
-
-for(let i=0; i<users.length;i++){
-    greetOverEighteen(users[i].age,users[i].name)
+const calculate =(a,op,b)=>
+{
+if (op==='+') return sum(a,b)
+if (op==='-') return sub (a,b)
 
 }
-/* in above loop, on every iteration, we are passing an 
-argument with the exact order as per function signature,
-this loop would run & on each run, it will make a call to 
-function "greetOverEighteen" and then this function would
-be executed on each iteration. when we call function, arguments such
-as age and name are passed but when we define function,those are called parameters*/
+console.log(calculate(2,'+',4))
+console.log (calculate(2,'-',4))
 
-//if I want to greet One single person anywhere in my application
-// I just write function name and pass 2 parameters
+const result='str'//This result is defined globally
+const calculate2 =(a,op,b)=>
+{
+    const result = 0//this result is defined inside calculate2 function { }
+if (op==='+') {const result =sum(a,b); return result}// this result is defined here { }
+if (op==='-') {const result= sub(a,b); return result}// this result is defined here { }
 
-greetOverEighteen(10,'Nikunj')// it will not display as logic is not met
-greetOverEighteen(50,'Kusam')//it will display as logic is met, age>18, so name would be console.log
+}
+console.log(calculate2(4,'+',6))
+console.log (calculate(10,'-',2))
 
-/*Another way of defining functions as Arrow function syntax
-const variable name = (parameters) => {code block} */
+/*Variable result is defined again and again irrespective of constant keyword 
+due to its local scope { } and global scope. Any variable defines within { } lives and
+dies within that scope only. It is defined in memory only when it enters {
+    and is deleted from memory when } ends. That variable is not accessible from outside
+    its scope.*/
 
-const greetUnderEighteen = (age ,name) => {
-    if(age <18){
-        let greeting =`hello ${name}`
-        console.log(greeting)
+    const division = (a,b)=>{
+        const divide= a/b
+        return divide
     }
-}
-greetUnderEighteen(20,'Ram')
-greetUnderEighteen(17,'Ram')
+    console.log(division(3,2))
 
-greetUnderEighteen()/*javascript will not throw any error 
-if arguments are not passed in function call , 
-it will think variable parameters are yet undefined
-In such cases we can do something like this as below*/
+    /*console.log(divide)-it will Throw an error because divide is not defined here , it is defined in local scope { } of function division
+    we are in global scope and by being in global scope, we can't access variable divide- outside from local scope { } 
+    but viceversa is possible -means local scope has access to global scope but not other local scopes*/
 
-const  elderToMe= (age ,name) => {
-    if (!age || !name){
-        console.log ('please enter valid data')
-        return
+
+
+    const logging =()=>{
+       const i=10
+       if(i===10) {
+        const j=20
+        console.log (i,j)
+
+       }// This local scope of code block has access to i which is defined in global scope of function logging
+      //if (j===20)-if we run this in below code without defining j , it will throw an error because below code scope has no access to scope of above code
+
+      {  const k=30
+        const j=40
+        const i =60// it will again define i with new value 50, but we just write i=50 without const,it will throw an error that assignment to constant variable because it will access global scope where it has been defined already as constant variable
+      console.log(i,j,k)}// value of i here in local scope overrides value of global scope if defined again
     }
-    if(age > 29){
-        let Elder =`hello big elder ${name}`
-        console.log(Elder)
-    } // this is no logic after this bracket and after this there is closing bracket  of function,so at this point ,javascript automatically assume that you want to return at this point without any value ,so it terminates, there is no need to right return here
-} 
+  // This overriding thing create bugs,so it is always preffered to define variables in local scope ,not global scope in order to avoid such ambuiguities.
+    
+  logging()
 
-elderToMe(30,'sham')
-elderToMe() // () is calling a function but if  we are using call back function-like newfunction (elderToME), we are giving reference to this elderToME function,without (),not calling it
+  /* So understanding the scope, scope has access to its own scope, scope of its parents
+  and its grand parents and above also, but it doesn't have access to scope of its
+  siblings and no access to scope of its children too.
+  Goes from inside to outside*/
 
-
-/* what this function will do, if there is no age or no name
-like it is null, undefined or empty string, it would be false
-but we are putting ! sign so it would evaluate as truthy value
-and it will console. log 'please enter valid data' in such cases and
-then return is a keyword to return a value in a function
-- if anywhere return is mentioned without any parameters
-what it will do, it will just terminate the execution of function at that point and come out of
-the function*/
-
-/* Currency Convertor*/
-const currencyConvertor =(amount,rate)=>{
-    return amount* rate//here parameter is mentioned after return , so it would return a value and that value would be amount * rate 
-}
-const rupee =currencyConvertor(100,60)// return value is assigned to rupee variable
-console.log(rupee)
-
-/*Fun Quiz Score*/
-const funQuizScore =(scores)=>{    //scores as an array
-    if (!scores?.length) return// it is optional chaining , under hood it will check first whether scores is an array or not and if yes it will check its length
-    let quizSum=0
-    scores.forEach((user)=>{  // this is anonymous function as it has no name
-           quizSum+=user
-    })
-    return quizSum
-}
-
-/*!scores?.length means if scores doesn't have length property, please don't throw error at me
-under the hood if !(Array.isArray (scores) && scores.length===0)
-means if it is array -truthy && has length-truthy-so whole condition truthy
-and !truthy is falsy, so it will nor return and function would go on
-but if it is not array, it would be falsy and short-circuiting would happen
-and !falsy is truthy ,so function will return and terminate right away*/
-
-console.log(funQuizScore([1,2,3]))// first quiz sum =0 , then its become 0+1=1, then 1+2=3, then 3+3=6, so output=6
-console.log(funQuizScore(20))// undefined because 20 is not array, it will return undefined due to optional chaining
-console.log(funQuizScore({}))//undefined as it is an object, not array
-
-/*console.log(funQuizScore('name'))// it will return an error because for each is not valid for strings
-in case of strings, it will not be undefined, because string is generally an array of characters.
-so it will pass optional chaining but get failed at forEach. In order to avoid this passing,
-we have to give extra different condition  before optional chaining to check if scores is a string or not*/
-
-/*Fun Quiz Score*/
-const funQuiz =(scores)=>{    //scores as an array
-    if(typeof scores==='string') return
-    if (!scores?.length) return// it is optional chaining , under hood it will check first whether scores is an array or not and if yes it will check its length
-    let quizSum=0
-    scores.forEach((user)=>{  // this is anonymous function as it has no name
-           quizSum+=user
-    })
-    return quizSum
-}
-console.log(funQuiz('roopant'))//now result is undefined because first scores checked for data type
-
-
-/* New Currency Convertor if we have default parameters and we dont want to get undefined/NaN as a result
-in case we don't pass any arguments */
-
-const newCurrencyConvertor =(amount=100,rate=2)=>{
-    return amount*rate
-}
-console.log(newCurrencyConvertor())//in case of no arguments will not return undefined, because we gave default value, so 100*2=200
-console.log(newCurrencyConvertor(undefined, 4))//undefined will not be considered, default 100 is considered, and rate 4 overrides default value so, result would be 400
-console.log(newCurrencyConvertor('roopant',5))//would return NaN (not a number), string*number is undefined which would converted to NaN under hood by javascript
-console.log(newCurrencyConvertor(undefined,undefined))//would take default parameters
-console.log(newCurrencyConvertor(undefined))//instead of undefined, it would take 100 and 2nd argument is not there ,so it will take 2, so answer=100*2=200
-
-console.log(newCurrencyConvertor(null))/* it would give 0 becoz javascript would
-do type conversion to number under the hood, null would converted to 0 and 0*2 would be 0*/
-
-console.log(currencyConvertor(null))/* under the hood, first parameter null would be type
-converted to 0 and another parameter we didn't give ,it is undefined, so 0*undefined would 
-be undefined which is converted to NaN by javascript, so we get null as result*/
-
+  /*Best Practices for defining functions-
+  1) use camelCase
+  2) use verb to define what function will do
+  3) use isOpen like name if result is boolean-true or false
+  4) parameters should be named meaningful
+  */
