@@ -1,72 +1,73 @@
-/*scope and closure*/
+/*Errors*/
 
-const sum =(a,b)=>a+b// javascript understand it as {return a+b}
-const sub=(a,b)=> a-b
+/*Type Error
 
-const calculate =(a,op,b)=>
-{
-if (op==='+') return sum(a,b)
-if (op==='-') return sub (a,b)
+const i= 2
+i=5
 
-}
-console.log(calculate(2,'+',4))
-console.log (calculate(2,'-',4))
+*/
 
-const result='str'//This result is defined globally
-const calculate2 =(a,op,b)=>
-{
-    const result = 0//this result is defined inside calculate2 function { }
-if (op==='+') {const result =sum(a,b); return result}// this result is defined here { }
-if (op==='-') {const result= sub(a,b); return result}// this result is defined here { }
+ /*Reference Error
 
-}
-console.log(calculate2(4,'+',6))
-console.log (calculate(10,'-',2))
+ console.log(j) */// if something is undefined ,then reference error
 
-/*Variable result is defined again and again irrespective of constant keyword 
-due to its local scope { } and global scope. Any variable defines within { } lives and
-dies within that scope only. It is defined in memory only when it enters {
-    and is deleted from memory when } ends. That variable is not accessible from outside
-    its scope.*/
+ /*Throw Error yourself*/
 
-    const division = (a,b)=>{
-        const divide= a/b
-        return divide
-    }
-    console.log(division(3,2))
+ const sum=(a,b)=>{
+if ((a!==0 && !a) || (b!==0 && !b)) throw new TypeError('Invalid Arg.')
+return a+b
+ }
 
-    /*console.log(divide)-it will Throw an error because divide is not defined here , it is defined in local scope { } of function division
-    we are in global scope and by being in global scope, we can't access variable divide- outside from local scope { } 
-    but viceversa is possible -means local scope has access to global scope but not other local scopes*/
+ console.log(sum(1,1))
+ console.log(sum(1,0))
+ //console.log(sum(2))//it will throw an error with our comment- Throw is keyword & new is also keyword but it is also used to make new objects in classes
+
+ /*Handling Errors in code*/
+
+ try {
+  console.log(sum(1,2))
+ } catch (error) {
+  console.log('We got an error')//this will only run if there is error in try
+ } finally{
+console.log('we are at final step')
+ }
+
+ try {
+  console.log(sum(1))
+ } catch (error) {
+  console.log('We got an error')// there is error in try, so it catch error and instead of throwing error and terminating the program, it do whatever is there in 'catch'
+ } finally{
+console.log('we are at final step')
+ }
+
+ try {
+  console.log(sum())
+ } catch (error) {
+  console.log('We got an error')// there is error in try, so it catch error and instead of throwing error and terminating the program, it do whatever is there in 'catch'
+  console.error(error)//by doing this we can display error to programmer just like actual error is shown in code, but it will not break the program
+} finally{
+console.log('we are at final step')
+ }
+ 
+ try {
+  console.log(sum())
+ } catch {// we can omit the (error) or (e) if we are not dealing with error in code below
+  console.log('We got an error')// there is error in try, so it catch error and instead of throwing error and terminating the program, it do whatever is there in 'catch'
+} finally{
+console.log('we are at final step')
+ }
 
 
+ const foo= ()=>{
+  try {
+    console.log(sum())
+   } catch (error) {
+    console.log('We got an error')// there is error in try, so it catch error and instead of throwing error and terminating the program, it do whatever is there in 'catch'
+    throw error//it will execute line 65 and line 68 but after that it will throw error at next programmer whoever is calling foo function in line 73 and break the program at that point
+  } finally{
+  console.log('we are at final step')
+   }
 
-    const logging =()=>{
-       const i=10
-       if(i===10) {
-        const j=20
-        console.log (i,j)
 
-       }// This local scope of code block has access to i which is defined in global scope of function logging
-      //if (j===20)-if we run this in below code without defining j , it will throw an error because below code scope has no access to scope of above code
-
-      {  const k=30
-        const j=40
-        const i =60// it will again define i with new value 50, but we just write i=50 without const,it will throw an error that assignment to constant variable because it will access global scope where it has been defined already as constant variable
-      console.log(i,j,k)}// value of i here in local scope overrides value of global scope if defined again
-    }
-  // This overriding thing create bugs,so it is always preffered to define variables in local scope ,not global scope in order to avoid such ambuiguities.
-    
-  logging()
-
-  /* So understanding the scope, scope has access to its own scope, scope of its parents
-  and its grand parents and above also, but it doesn't have access to scope of its
-  siblings and no access to scope of its children too.
-  Goes from inside to outside*/
-
-  /*Best Practices for defining functions-
-  1) use camelCase
-  2) use verb to define what function will do
-  3) use isOpen like name if result is boolean-true or false
-  4) parameters should be named meaningful
-  */
+ }
+ //foo()// This will throw error and break code due to line 66
