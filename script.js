@@ -1,73 +1,78 @@
-/*Errors*/
+//DOM discussion//
+//DOM is basically model which shows properties of different elements of  document in the form of objects.
 
-/*Type Error
+// Everytime we open a new tab in browser, JavaScript would create a new window object specific to that tab
+//document object in console is your DOM and document is webpage 
 
-const i= 2
-i=5
+console.dir(document.body)// to see body element of document in object representation
 
-*/
+/*if we see body, we can see children of body, it is HTML collection
+collection means an array, like all the elements under parent"body"
+in the form of array with index numbers. and inside each index element
+, it shows all the properties that an element can take. So basically
+children become an array of objects */
 
- /*Reference Error
+/*JavaScript has capability to read and write to DOM. Going everytime
+in console to understand the DOM structure is very tedious.
+So Browser gave API Application Programming Interface to deal with DOM
+APIs are basically functions only which can be used to deal with application itself*/
 
- console.log(j) */// if something is undefined ,then reference error
+// function when attached to an object or class is known as method
 
- /*Throw Error yourself*/
+//Node is basically every object located within a document
 
- const sum=(a,b)=>{
-if ((a!==0 && !a) || (b!==0 && !b)) throw new TypeError('Invalid Arg.')
-return a+b
- }
+/*Create element and inject it to DOM*/
 
- console.log(sum(1,1))
- console.log(sum(1,0))
- //console.log(sum(2))//it will throw an error with our comment- Throw is keyword & new is also keyword but it is also used to make new objects in classes
+const para=document.createElement('p') // create a new element with p tag in javascript memory
+const body=document.querySelector('body')//getting reference to body, queryselector works same as the way selectors work in CSS
+body.appendChild(para)// making p as child of body -linking both body and p as parent and child respectively. Append child means adding para as child of body
+para.innerHTML='hello child'/* writing inside p tag between opening and closing tags of element 
+and can also add even whole new elements ,not just text -
+like whatever you want for example <div>hello</div> will be shown in body as 
+<p> 
+<div>hello</div>
+<p>*/
 
- /*Handling Errors in code*/
+/*changing element style*/
 
- try {
-  console.log(sum(1,2))
- } catch (error) {
-  console.log('We got an error')//this will only run if there is error in try
- } finally{
-console.log('we are at final step')
- }
+para.style.color = 'red'
+para.style.fontWeight= 900
+para.style.fontSize= '10px'// we have to mention in '' bcoz css understand 32px but for javaScript it is a string
 
- try {
-  console.log(sum(1))
- } catch (error) {
-  console.log('We got an error')// there is error in try, so it catch error and instead of throwing error and terminating the program, it do whatever is there in 'catch'
- } finally{
-console.log('we are at final step')
- }
+/*Try to change multiple CSS properties of element in one go- 
+because we can't do para.style={ } as it will change reference 
+and .style is read only property.so we have to write single single CSS to change as line 33-35
+Another method is shown below if we have to do it in one go, we can use CssText and with a back-tick `*/
 
- try {
-  console.log(sum())
- } catch (error) {
-  console.log('We got an error')// there is error in try, so it catch error and instead of throwing error and terminating the program, it do whatever is there in 'catch'
-  console.error(error)//by doing this we can display error to programmer just like actual error is shown in code, but it will not break the program
-} finally{
-console.log('we are at final step')
- }
- 
- try {
-  console.log(sum())
- } catch {// we can omit the (error) or (e) if we are not dealing with error in code below
-  console.log('We got an error')// there is error in try, so it catch error and instead of throwing error and terminating the program, it do whatever is there in 'catch'
-} finally{
-console.log('we are at final step')
- }
+const heading= document.querySelector('h1')
+heading.style.cssText=
+`color:red;text-decoration:underline;`
 
 
- const foo= ()=>{
-  try {
-    console.log(sum())
-   } catch (error) {
-    console.log('We got an error')// there is error in try, so it catch error and instead of throwing error and terminating the program, it do whatever is there in 'catch'
-    throw error//it will execute line 65 and line 68 but after that it will throw error at next programmer whoever is calling foo function in line 73 and break the program at that point
-  } finally{
-  console.log('we are at final step')
-   }
+/*changing element attributes*/
+
+para.setAttribute('class','dom-newelement')//attribute name and attribute value
+console.log(para.getAttribute('class'))//to display value of attribute
+
+/*events- As a webpage,click a button,motion, scrolling, page is loading,close window
+All these events are being monitored continously by browser and we are able to listen to events and
+do something about them */
+
+const btn =document.createElement('button')
+body.appendChild(btn)
+btn.textContent= 'click me!'// textcontent to edit text content inside element
+
+const htmlButton = document.querySelector('.html-button')//by this we give reference to element from html
+
+para.textContent='nothing to submit'
+para.classList.add('hide') // to add a class to element
 
 
- }
- //foo()// This will throw error and break code due to line 66
+
+htmlButton.addEventListener('click',()=>{                //we are listening events on htmlButton element, it takes two paramaters- event and function
+    console.log('hey , i am clicked')
+    para.classList.remove('hide')// so when we click button ,class hide and its CSS property is removed and p is displayed
+})// so when we click htmlButton, code block inside would run
+
+
+
